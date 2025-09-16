@@ -1,0 +1,19 @@
+public class Main {
+    public static void main(String[] args) {
+
+        // Exemplo 1
+        Cone cone1 = new Cone(10.0, 5.0, 1);
+        System.out.println("===== Exemplo 1 =====");
+        System.out.println(cone1);
+
+        // Exemplo 2
+        Cone cone2 = new Cone(20.0, 7.5, 2);
+        System.out.println("\n===== Exemplo 2 =====");
+        System.out.println(cone2);
+
+        // Exemplo 3
+        Cone cone3 = new Cone(30.0, 15.0, 3);
+        System.out.println("\n===== Exemplo 3 =====");
+        System.out.println(cone3);
+    }
+}

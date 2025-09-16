@@ -1,0 +1,109 @@
+public class Piramide {
+
+    // Constantes
+    public static final double RENDIMENTO = 4.76;  // m² por litro
+    public static final double LITROS_LATA = 18.0;
+
+    public static final double PRECO_TIPO1 = 127.90;
+    public static final double PRECO_TIPO2 = 258.98;
+    public static final double PRECO_TIPO3 = 344.34;
+
+    // Atributos
+    private double ab; // lado da base
+    private double h;  // altura da pirâmide
+    private int tipoTinta;
+
+    // Construtores
+    public Piramide(double ab, double h, int tipoTinta) {
+        setAb(ab);
+        setH(h);
+        setTipoTinta(tipoTinta);
+    }
+
+    // Getters e Setters com validações
+    public double getAb() {
+        return ab;
+    }
+
+    public void setAb(double ab) {
+        if (ab <= 0) throw new IllegalArgumentException("O lado da base deve ser positivo!");
+        this.ab = ab;
+    }
+
+    public double getH() {
+        return h;
+    }
+
+    public void setH(double h) {
+        if (h <= 0) throw new IllegalArgumentException("A altura deve ser positiva!");
+        this.h = h;
+    }
+
+    public int getTipoTinta() {
+        return tipoTinta;
+    }
+
+    public void setTipoTinta(int tipoTinta) {
+        if (tipoTinta < 1 || tipoTinta > 3) throw new IllegalArgumentException("Tipo de tinta inválido!");
+        this.tipoTinta = tipoTinta;
+    }
+
+    // Métodos de cálculo
+    public double calcularA1() {
+        // altura de cada triângulo lateral
+        return Math.sqrt((h * h) + Math.pow(ab / 2, 2));
+    }
+
+    public double calcularAreaTriangulo() {
+        return (ab * calcularA1()) / 2;
+    }
+
+    public double calcularAreaBase() {
+        return ab * ab;
+    }
+
+    public double calcularAreaTotal() {
+        return calcularAreaBase() + 4 * calcularAreaTriangulo();
+    }
+
+    public double calcularVolume() {
+        return (1.0 / 3.0) * calcularAreaBase() * h;
+    }
+
+    public double calcularLitrosTinta() {
+        return calcularAreaTotal() / RENDIMENTO;
+    }
+
+    public int calcularLatasTinta() {
+        return (int) Math.ceil(calcularLitrosTinta() / LITROS_LATA);
+    }
+
+    public double calcularPrecoLata() {
+        switch (tipoTinta) {
+            case 1: return PRECO_TIPO1;
+            case 2: return PRECO_TIPO2;
+            case 3: return PRECO_TIPO3;
+            default: return 0;
+        }
+    }
+
+    public double calcularPrecoTotal() {
+        return calcularLatasTinta() * calcularPrecoLata();
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        return "ab: " + ab +
+                "\nh: " + h +
+                "\na1: " + calcularA1() +
+                "\nÁrea Triângulo: " + calcularAreaTriangulo() +
+                "\nÁrea Base: " + calcularAreaBase() +
+                "\nÁrea Total: " + calcularAreaTotal() +
+                "\nTipo de Tinta: " + tipoTinta +
+                "\nLitros: " + calcularLitrosTinta() +
+                "\nLatas: " + calcularLatasTinta() +
+                "\nPreço: " + calcularPrecoTotal() +
+                "\nVolume: " + calcularVolume();
+    }
+}

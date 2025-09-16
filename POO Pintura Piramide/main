@@ -1,0 +1,19 @@
+public class Main {
+    public static void main(String[] args) {
+
+        // Exemplo do enunciado
+        Piramide p1 = new Piramide(13.89, 41.87, 3);
+        System.out.println("===== Exemplo 1 =====");
+        System.out.println(p1);
+
+        // Outro exemplo
+        Piramide p2 = new Piramide(10.0, 20.0, 2);
+        System.out.println("\n===== Exemplo 2 =====");
+        System.out.println(p2);
+
+        // Outro exemplo
+        Piramide p3 = new Piramide(25.0, 30.0, 1);
+        System.out.println("\n===== Exemplo 3 =====");
+        System.out.println(p3);
+    }
+}

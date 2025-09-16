@@ -1,0 +1,99 @@
+public class Cone {
+
+    // Constantes
+    public static final double PI = 3.14;
+    public static final double LITROS_LATA = 18.0;
+    public static final double RENDIMENTO = 3.45; // m² por litro
+
+    public static final double PRECO_TIPO1 = 238.90;
+    public static final double PRECO_TIPO2 = 467.98;
+    public static final double PRECO_TIPO3 = 758.34;
+
+    // Atributos
+    private double z; // altura
+    private double r; // raio da base
+    private int tipoTinta;
+
+    // Construtores
+    public Cone(double z, double r, int tipoTinta) {
+        setZ(z);
+        setR(r);
+        setTipoTinta(tipoTinta);
+    }
+
+    // Getters e Setters com validações
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) {
+        if (z <= 0) throw new IllegalArgumentException("Altura deve ser positiva!");
+        this.z = z;
+    }
+
+    public double getR() {
+        return r;
+    }
+
+    public void setR(double r) {
+        if (r <= 0) throw new IllegalArgumentException("Raio deve ser positivo!");
+        this.r = r;
+    }
+
+    public int getTipoTinta() {
+        return tipoTinta;
+    }
+
+    public void setTipoTinta(int tipoTinta) {
+        if (tipoTinta < 1 || tipoTinta > 3) throw new IllegalArgumentException("Tipo de tinta inválido!");
+        this.tipoTinta = tipoTinta;
+    }
+
+    // Métodos de cálculo
+    public double calcularGeratriz() {
+        return Math.sqrt((z * z) + (r * r));
+    }
+
+    public double calcularAreaBase() {
+        return PI * r * r;
+    }
+
+    public double calcularAreaTotal() {
+        return PI * r * (r + calcularGeratriz());
+    }
+
+    public double calcularLitrosTinta() {
+        return calcularAreaTotal() / RENDIMENTO;
+    }
+
+    public int calcularLatasTinta() {
+        return (int) Math.ceil(calcularLitrosTinta() / LITROS_LATA);
+    }
+
+    public double calcularPrecoLata() {
+        switch (tipoTinta) {
+            case 1: return PRECO_TIPO1;
+            case 2: return PRECO_TIPO2;
+            case 3: return PRECO_TIPO3;
+            default: return 0;
+        }
+    }
+
+    public double calcularValorTotal() {
+        return calcularLatasTinta() * calcularPrecoLata();
+    }
+
+    // toString para exibir resultados
+    @Override
+    public String toString() {
+        return "Z (altura): " + z +
+                "\nR (raio): " + r +
+                "\nTipo de Tinta: " + tipoTinta +
+                "\n\nGeratriz: " + calcularGeratriz() +
+                "\nÁrea da Base: " + calcularAreaBase() +
+                "\nÁrea Total: " + calcularAreaTotal() +
+                "\nLitros de Tinta: " + calcularLitrosTinta() +
+                "\nLatas de Tinta: " + calcularLatasTinta() +
+                "\nValor Total: " + calcularValorTotal();
+    }
+}
